@@ -194,6 +194,46 @@ body {
     color: var(--light-text-color);
 }
 
+/* Calculation Model Section */
+.calculation-model {
+    padding: 5rem 0;
+    background-color: var(--light-background);
+}
+
+.model-explanation {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.model-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.model-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.model-section p {
+    color: var(--light-text-color);
+    margin-bottom: 1rem;
+    line-height: 1.8;
+}
+
+.model-section p:last-child {
+    margin-bottom: 0;
+}
+
 /* Footer */
 .footer {
     background-color: var(--light-background);
