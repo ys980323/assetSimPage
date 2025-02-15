@@ -236,12 +236,13 @@ body {
 
 /* Footer */
 .footer {
-    background-color: var(--light-background);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     padding: 3rem 0;
     margin-top: 5rem;
 }
 
 .footer-content {
+    color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -249,8 +250,25 @@ body {
     gap: 1rem;
 }
 
+.footer a,
+.footer a:link,
+.footer a:visited {
+    color: white !important;
+    text-decoration: none;
+    transition: all 0.3s;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.footer a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
 .footer p {
-    color: var(--light-text-color);
+    color: white;
+    opacity: 0.9;
 }
 
 .footer a {
