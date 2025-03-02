@@ -3,15 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>資産予測 - プロの分析力を、誰でもカンタンに。</title>
+    <title>Ys Apps - スマートなアプリ開発</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
+    <style>
+        .app-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .app-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .app-card-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        
+        .app-card-body {
+            padding: 2rem;
+            flex-grow: 1;
+        }
+        
+        .app-card h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .app-card p {
+            color: var(--light-text-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .app-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .app-card-footer {
+            padding: 1.5rem 2rem;
+            background-color: var(--light-background);
+            display: flex;
+            justify-content: center;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+    </style>
 </head>
 <body>
     <header class="header">
         <div class="container">
             <nav class="nav">
-                <div class="logo">資産予測</div>
+                <div class="logo">Ys Apps</div>
                 <button class="hamburger" aria-label="メニュー">
                     <span></span>
                     <span></span>
@@ -19,17 +92,16 @@
                 </button>
                 <div class="nav-links">
                     <a href="index.html" class="active">ホーム</a>
+                    <a href="asset-sim.html">資産予測</a>
+                    <a href="cash-flow.html">収支管理</a>
                     <a href="terms-of-service.html">利用規約</a>
                     <a href="privacy-policy.html">プライバシーポリシー</a>
                 </div>
             </nav>
             <div class="hero">
-                <h1>プロの分析力を<br>誰でもカンタンに</h1>
-                <p class="subtitle">モンテカルロ法による高度な資産シミュレーションを、<br>スマートフォンで直感的に。</p>
-                <p class="description">市場暴落や定期的な引き出しまで考慮した<br>プロフェッショナルレベルの資産形成分析を、<br>どなたでも簡単に実施できます。</p>
-                <a href="https://apps.apple.com/jp/app/%E8%B3%87%E7%94%A3%E4%BA%88%E6%B8%AC-%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E3%81%A7%E8%A6%8B%E3%82%84%E3%81%99%E3%81%84%E6%9C%AC%E6%A0%BC%E6%8A%95%E8%B3%87%E5%88%86%E6%9E%90%E3%82%A2%E3%83%97%E3%83%AA/id6741680495" class="download-button" target="_blank">
-                    <img src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg" alt="Download on the App Store">
-                </a>
+                <h1>シンプルで使いやすい<br>スマートなアプリ</h1>
+                <p class="subtitle">ライフスタイルを豊かにする<br>高品質なモバイルアプリ開発</p>
+                <p class="description">資産形成から日々の収支管理まで、<br>あなたの生活をより良くするアプリを提供します。</p>
             </div>
         </div>
     </header>
@@ -37,28 +109,35 @@
     <main class="content">
         <section class="features">
             <div class="container">
-                <h2 class="section-title">主な機能</h2>
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">📊</div>
-                        <h3>モンテカルロ・シミュレーション</h3>
-                        <p>1万回以上のシミュレーションで、将来の資産推移を統計的に予測。市場の不確実性を考慮した精密な分析が可能です。</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">💰</div>
-                        <h3>柔軟な投資設定</h3>
-                        <p>初期投資額、定期投資額に加え、ボーナス投資や定期的な引き出しまで設定可能。あなたのライフプランに合わせた細かな調整ができます。</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📈</div>
-                        <h3>リスク分析</h3>
-                        <p>期待リターンと標準偏差を自由に設定。さらに、市場暴落シナリオを組み込んで、より現実的なリスク分析が可能です。</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🎯</div>
-                        <h3>目標達成分析</h3>
-                        <p>目標金額の達成確率をグラフで可視化。複数のシミュレーションを保存して比較することで、最適な投資戦略を見つけられます。</p>
-                    </div>
+                <h2 class="section-title">アプリ一覧</h2>
+                <p style="text-align: center; margin-bottom: 2rem;">シンプルで使いやすい、でもパワフルな機能を持つアプリをご紹介します。</p>
+                
+                <div class="app-cards">
+                    <a href="asset-sim.html" class="app-card">
+                        <div class="app-card-header">
+                            <div class="app-card-icon">📊</div>
+                            <h3>資産予測</h3>
+                        </div>
+                        <div class="app-card-body">
+                            <p>モンテカルロ法による高度な資産シミュレーションを、スマートフォンで直感的に。市場暴落や定期的な引き出しまで考慮した、プロフェッショナルレベルの資産形成分析を、どなたでも簡単に実施できます。</p>
+                        </div>
+                        <div class="app-card-footer">
+                            <span class="btn">詳細を見る</span>
+                        </div>
+                    </a>
+                    
+                    <a href="cash-flow.html" class="app-card">
+                        <div class="app-card-header">
+                            <div class="app-card-icon">💰</div>
+                            <h3>収支管理</h3>
+                        </div>
+                        <div class="app-card-body">
+                            <p>日々の収支をカンタン管理。あなたの資産の流れを可視化します。収入と支出を直感的に記録し、将来のお金の流れを予測。効率的な家計管理を実現します。</p>
+                        </div>
+                        <div class="app-card-footer">
+                            <span class="btn">詳細を見る</span>
+                        </div>
+                    </a>
                 </div>
             </div>
         </section>
@@ -73,14 +152,14 @@
                         <p>目に優しいダークモードを搭載。夜間の使用でも快適に操作できます。</p>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-icon">💾</div>
-                        <h3>シミュレーション保存</h3>
-                        <p>作成したシミュレーションを保存可能。複数のシナリオを比較検討できます。</p>
+                        <div class="feature-icon">🔒</div>
+                        <h3>プライバシー重視</h3>
+                        <p>個人情報は端末内に保存。クラウドへのアップロードなし。安心してご利用いただけます。</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">📱</div>
                         <h3>直感的なUI</h3>
-                        <p>複雑な設定も、スライダーやトグルで簡単に調整。誰でも迷わず操作できます。</p>
+                        <p>シンプルで使いやすいデザイン。誰でも迷わず操作できるインターフェース。</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">✨</div>
@@ -93,42 +172,26 @@
 
         <section class="calculation-model">
             <div class="container">
-                <h2 class="section-title">計算モデルについて</h2>
+                <h2 class="section-title">開発理念</h2>
                 <div class="model-explanation">
                     <div class="model-section">
-                        <h3>📊 高度な計算モデルの組み合わせ</h3>
-                        <p>このアプリでは、以下の3つの計算モデルを組み合わせて、より正確な将来予測を実現しています。</p>
+                        <h3>💡 シンプルさと使いやすさ</h3>
+                        <p>複雑な機能を直感的に操作できるよう設計。誰でもすぐに使いこなせるシンプルなインターフェースを提供します。</p>
                     </div>
 
                     <div class="model-section">
-                        <h3>🎲 モンテカルロ・シミュレーション</h3>
-                        <p>モンテカルロ・シミュレーションは、「乱数」を使って多数のシナリオを生成し、統計的な予測を行う方法です。実際の市場と同じように、上がる時もあれば下がる時もあるという不確実性を考慮した予測が可能になります。</p>
+                        <h3>🔍 ユーザーニーズへの注目</h3>
+                        <p>実際のユーザーの声を反映したアプリ開発。日常生活での本当の課題を解決するための機能を追求しています。</p>
                     </div>
 
                     <div class="model-section">
-                        <h3>🚀 ジャンプ拡散モデル</h3>
-                        <p>ジャンプ拡散モデルは、市場の突発的な変動（ジャンプ）を表現するためのモデルです。通常の小さな変動に加えて、リーマンショックのような大きな変動を考慮することで、より現実的な市場予測が可能になります。</p>
+                        <h3>🛠️ 高品質な実装</h3>
+                        <p>バグの少ない安定したアプリ体験のために、徹底した品質管理を行っています。ストレスなく使い続けられるアプリを目指します。</p>
                     </div>
 
                     <div class="model-section">
-                        <h3>📈 マルコフモデル</h3>
-                        <p>マルコフモデルは、市場の「状態」を考慮したモデルです。例えば、「好調な市場」「停滞市場」「暴落市場」など、市場の状態が時間とともに変化する様子を表現します。これにより、継続的な好調や不況など、市場のトレンドを考慮した予測が可能になります。</p>
-                    </div>
-
-                    <div class="model-section">
-                        <h3>📈 期待リターンと標準偏差</h3>
-                        <p>期待リターンは、長期的に見た際の平均的な利回りを表します。例えば、5%の期待リターンは、長期的に見れば平均して5%の利回りが得られることを意味します。</p>
-                        <p>標準偏差は、実際の利回りが期待リターンからどの程度上下する可能性があるかを表します。例えば、標準偏差が15%の場合、実際の利回りは期待リターンから上下15%程度の範囲で変動する可能性が高いことを意味します。</p>
-                    </div>
-
-                    <div class="model-section">
-                        <h3>📉 市場暴落シナリオ</h3>
-                        <p>実際の市場では、リーマンショックのような大きな暴落が突発的に起こることがあります。このアプリでは、このような市場暴落をシミュレーションに組み込むことができます。予期せぬ大暴落が起きた場合でも、あなたの資産がどの程度の影響を受けるかを事前に確認できます。</p>
-                    </div>
-
-                    <div class="model-section">
-                        <h3>💸 定期的な引き出しを考慮した計算</h3>
-                        <p>老後の生活資金や、お子様の教育資金など、将来の定期的な引き出しを考慮したシミュレーションが可能です。引き出し開始年と引き出し率を設定することで、より現実的な資産形成計画を立てることができます。</p>
+                        <h3>🔄 継続的な改善</h3>
+                        <p>ユーザーフィードバックを元に定期的な更新を実施。常に進化し続けるアプリを提供します。</p>
                     </div>
                 </div>
             </div>
@@ -139,7 +202,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-info">
-                    <p>&copy; 2025 資産予測. All rights reserved.</p>
+                    <p>&copy; 2025 Ys Apps. All rights reserved.</p>
                 </div>
                 <div class="footer-contact">
                     <p>お問い合わせ: <a href="mailto:ys.apps.feedback@gmail.com">ys.apps.feedback@gmail.com</a></p>
