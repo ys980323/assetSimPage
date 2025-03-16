@@ -183,9 +183,9 @@ body {
     margin-bottom: 3rem;
     color: var(--text-color);
     position: relative;
-    display: inline-block;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .section-title::after {
