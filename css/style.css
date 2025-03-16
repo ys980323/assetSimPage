@@ -187,6 +187,11 @@ body::before {
     z-index: 1;
 }
 
+/* 利用規約とプライバシーポリシーページ用の狭いヘッダー */
+.legal-pages .header {
+    padding: 1rem 0;
+}
+
 .header::before {
     content: '';
     position: absolute;
@@ -1155,6 +1160,11 @@ body::before {
         min-height: 350px;
     }
     
+    .legal-pages .header {
+        min-height: auto;
+        padding: 0.8rem 0;
+    }
+    
     .nav {
         margin-bottom: 1.5rem;
     }
@@ -1268,6 +1278,10 @@ body::before {
 }
 
 @media (max-width: 480px) {
+    .legal-pages .header {
+        padding: 0.6rem 0;
+    }
+    
     .hero h1 {
         font-size: 1.6rem;
     }
