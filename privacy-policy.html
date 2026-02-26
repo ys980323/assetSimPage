@@ -4,110 +4,293 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>プライバシーポリシー - Ys Apps</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+    <style>
+        :root {
+            --bg-0: #07090d;
+            --bg-1: #0f1420;
+            --line: rgba(148, 163, 184, 0.22);
+            --line-strong: rgba(148, 163, 184, 0.42);
+            --text: #eef2ff;
+            --text-sub: #c5cde0;
+            --panel-bg: rgba(255, 255, 255, 0.05);
+            --glow: rgba(167, 193, 255, 0.32);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+            color: var(--text);
+            display: grid;
+            place-items: center;
+            padding: 1.2rem;
+            background:
+                radial-gradient(1000px 420px at 10% -12%, #1a2437 0%, transparent 70%),
+                radial-gradient(900px 420px at 90% 0%, #141d2e 0%, transparent 70%),
+                linear-gradient(165deg, var(--bg-0), var(--bg-1));
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                linear-gradient(to right, var(--line) 1px, transparent 1px) 0 0 / 36px 36px,
+                linear-gradient(to bottom, var(--line) 1px, transparent 1px) 0 0 / 36px 36px;
+            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.45));
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .topbar {
+            position: fixed;
+            top: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(980px, calc(100% - 2rem));
+            border: 1px solid var(--line-strong);
+            border-radius: 14px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 12px 32px rgba(5, 10, 20, 0.45);
+            padding: 0.6rem 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 20;
+        }
+
+        .topbar-logo {
+            font-size: 0.95rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #f8fbff;
+            text-decoration: none;
+        }
+
+        .topbar-nav {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.45rem 0.75rem;
+            font-size: 0.85rem;
+            text-decoration: none;
+            color: #f8fbff;
+            border: 1px solid rgba(191, 219, 254, 0.48);
+            border-radius: 9px;
+            background: rgba(15, 23, 42, 0.45);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .nav-btn:hover,
+        .nav-btn.active {
+            transform: translateY(-1px);
+            border-color: rgba(191, 219, 254, 0.9);
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.45), 0 0 18px rgba(167, 193, 255, 0.14);
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(191, 219, 254, 0.55);
+            border-radius: 10px;
+            background: rgba(15, 23, 42, 0.6);
+            color: #eef2ff;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .menu-toggle span { width: 18px; height: 2px; background: currentColor; position: relative; display: block; }
+        .menu-toggle span::before,
+        .menu-toggle span::after { content: ''; position: absolute; left: 0; width: 18px; height: 2px; background: currentColor; }
+        .menu-toggle span::before { top: -6px; }
+        .menu-toggle span::after { top: 6px; }
+
+        .mobile-menu {
+            position: fixed;
+            top: 4.4rem;
+            right: 1rem;
+            width: min(280px, calc(100% - 2rem));
+            border: 1px solid var(--line-strong);
+            border-radius: 12px;
+            background: linear-gradient(155deg, rgba(22, 30, 45, 0.95), rgba(12, 18, 31, 0.95));
+            box-shadow: 0 18px 38px rgba(5, 10, 20, 0.6);
+            padding: 0.75rem;
+            display: none;
+            flex-direction: column;
+            gap: 0.55rem;
+            z-index: 25;
+        }
+
+        .mobile-menu.open { display: flex; }
+
+        @media (min-width: 641px) {
+            .mobile-menu { display: none !important; }
+        }
+
+        .panel {
+            width: min(920px, 100%);
+            border: 1px solid var(--line-strong);
+            border-radius: 18px;
+            padding: clamp(1rem, 2.4vw, 2rem);
+            margin-top: 3.8rem;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 22px 58px rgba(5, 10, 20, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+        }
+
+        h1 {
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+            letter-spacing: 0.08em;
+            margin-bottom: 0.7rem;
+        }
+
+        .last-updated {
+            display: inline-block;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 0.25rem 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        section {
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: var(--panel-bg);
+            padding: 1rem;
+            margin-top: 0.7rem;
+        }
+
+        h2 { font-size: 1rem; margin-bottom: 0.5rem; }
+        p, li { font-size: 0.95rem; color: var(--text-sub); line-height: 1.7; }
+        ul { margin: 0.35rem 0 0.45rem 1.2rem; }
+        a { color: #dbeafe; }
+
+        @media (max-width: 640px) {
+            body { padding: 0.9rem; }
+            .topbar {
+                top: 0.7rem;
+                width: calc(100% - 1.2rem);
+                padding: 0.45rem 0.55rem;
+            }
+            .topbar-logo { font-size: 0.8rem; letter-spacing: 0.1em; }
+            .topbar-nav { display: none; }
+            .menu-toggle { display: inline-flex; }
+            .panel { margin-top: 3.7rem; padding: 1rem; border-radius: 14px; }
+        }
+    </style>
 </head>
-<body class="legal-pages">
-    <header class="header">
-        <div class="container">
-            <nav class="nav">
-                <div class="logo">Ys Apps</div>
-                <button class="hamburger" aria-label="メニュー">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                <div class="nav-links">
-                    <a href="index.html">ホーム</a>
-                    <a href="asset-sim.html">資産予測</a>
-                    <a href="cash-flow.html">おさいふ予報</a>
-                    <a href="terms-of-service.html">利用規約</a>
-                    <a href="privacy-policy.html" class="active">プライバシーポリシー</a>
-                </div>
-            </nav>
-        </div>
+<body>
+    <header class="topbar">
+        <a class="topbar-logo" href="index.html">Ys Apps</a>
+        <nav class="topbar-nav" aria-label="トップナビゲーション">
+            <a class="nav-btn active" href="index.html">ホーム</a>
+            <a class="nav-btn active" href="privacy-policy.html">プライバシーポリシー</a>
+            <a class="nav-btn" href="terms-of-service.html">利用規約</a>
+        </nav>
+        <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobile-menu">
+            <span></span>
+        </button>
     </header>
 
-    <main class="content terms">
-        <div class="container">
-            <h1>プライバシーポリシー</h1>
-            <p class="last-updated">最終更新日：2025年2月14日</p>
-            
-            <section>
-                <h2>1. 収集する情報</h2>
-                <p>当アプリケーションでは、以下の情報を収集する場合があります：</p>
-                <ul>
-                    <li>アプリの利用状況に関する統計情報</li>
-                    <li>広告表示に関する情報</li>
-                    <li>アプリ内での設定情報</li>
-                </ul>
-                <p>※ すべてのシミュレーションデータは端末内にのみ保存され、外部に送信されることはありません。</p>
-            </section>
+    <nav id="mobile-menu" class="mobile-menu" aria-label="モバイルメニュー">
+        <a class="nav-btn active" href="index.html">ホーム</a>
+        <a class="nav-btn active" href="privacy-policy.html">プライバシーポリシー</a>
+        <a class="nav-btn" href="terms-of-service.html">利用規約</a>
+    </nav>
 
-            <section>
-                <h2>2. 情報の利用目的</h2>
-                <p>収集した情報は以下の目的で利用されます：</p>
-                <ul>
-                    <li>アプリの機能提供およびサービス改善</li>
-                    <li>広告配信の最適化</li>
-                    <li>ユーザーサポートの提供</li>
-                    <li>アプリのパフォーマンス向上</li>
-                </ul>
-            </section>
+    <main class="panel">
+        <h1>プライバシーポリシー</h1>
+        <p class="last-updated">最終更新日：2025年2月14日</p>
 
-            <section>
-                <h2>3. 広告について</h2>
-                <p>当アプリケーションでは、Google AdMobを使用して広告を配信しています。広告配信に関する詳細は、<a href="https://policies.google.com/technologies/ads?hl=ja">Googleの広告ポリシー</a>をご確認ください。</p>
-            </section>
+        <section>
+            <h2>1. 収集する情報</h2>
+            <p>当アプリケーションでは、以下の情報を収集する場合があります：</p>
+            <ul>
+                <li>アプリの利用状況に関する統計情報</li>
+                <li>広告表示に関する情報</li>
+                <li>アプリ内での設定情報</li>
+            </ul>
+            <p>※ すべてのシミュレーションデータは端末内にのみ保存され、外部に送信されることはありません。</p>
+        </section>
 
-            <section>
-                <h2>4. データの保護</h2>
-                <p>ユーザーのプライバシー保護を最優先し、以下の対策を実施しています：</p>
-                <ul>
-                    <li>すべてのシミュレーションデータは端末内でのみ処理・保存</li>
-                    <li>個人を特定できる情報の収集を最小限に抑制</li>
-                    <li>適切なデータ暗号化の実施</li>
-                </ul>
-            </section>
+        <section>
+            <h2>2. 情報の利用目的</h2>
+            <p>収集した情報は以下の目的で利用されます：</p>
+            <ul>
+                <li>アプリの機能提供およびサービス改善</li>
+                <li>広告配信の最適化</li>
+                <li>ユーザーサポートの提供</li>
+                <li>アプリのパフォーマンス向上</li>
+            </ul>
+        </section>
 
-            <section>
-                <h2>5. お問い合わせ</h2>
-                <p>プライバシーポリシーに関するお問い合わせは、以下のメールアドレスまでご連絡ください：</p>
-                <p>ys.apps.feedback@gmail.com</p>
-            </section>
+        <section>
+            <h2>3. 広告について</h2>
+            <p>当アプリケーションでは、Google AdMobを使用して広告を配信しています。広告配信に関する詳細は、<a href="https://policies.google.com/technologies/ads?hl=ja">Googleの広告ポリシー</a>をご確認ください。</p>
+        </section>
 
-            <section>
-                <h2>6. プライバシーポリシーの変更</h2>
-                <p>本ポリシーは予告なく変更される場合があります。変更があった場合は、当ページで告知いたします。</p>
-            </section>
+        <section>
+            <h2>4. データの保護</h2>
+            <p>ユーザーのプライバシー保護を最優先し、以下の対策を実施しています：</p>
+            <ul>
+                <li>すべてのシミュレーションデータは端末内でのみ処理・保存</li>
+                <li>個人を特定できる情報の収集を最小限に抑制</li>
+                <li>適切なデータ暗号化の実施</li>
+            </ul>
+        </section>
 
-        </div>
+        <section>
+            <h2>5. お問い合わせ</h2>
+            <p>プライバシーポリシーに関するお問い合わせは、以下のメールアドレスまでご連絡ください：</p>
+            <p>ys.apps.feedback@gmail.com</p>
+        </section>
+
+        <section>
+            <h2>6. プライバシーポリシーの変更</h2>
+            <p>本ポリシーは予告なく変更される場合があります。変更があった場合は、当ページで告知いたします。</p>
+        </section>
     </main>
 
-    <footer class="footer">
-        <div class="footer-wave">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="var(--background-color)" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,138.7C672,149,768,203,864,202.7C960,203,1056,149,1152,122.7C1248,96,1344,96,1392,96L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
-        </div>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-links">
-                    <h4>アプリについて</h4>
-                    <a href="index.html">ホーム</a>
-                    <a href="asset-sim.html">資産予測</a>
-                    <a href="cash-flow.html">おさいふ予報</a>
-                </div>
-                <div class="footer-links">
-                    <h4>法的情報</h4>
-                    <a href="terms-of-service.html">利用規約</a>
-                    <a href="privacy-policy.html">プライバシーポリシー</a>
-                </div>
-                <div class="footer-contact">
-                    <h4>お問い合わせ</h4>
-                    <p><a href="mailto:ys.apps.feedback@gmail.com">ys.apps.feedback@gmail.com</a></p>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <script src="js/main.js"></script>
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', () => {
+                const isOpen = mobileMenu.classList.toggle('open');
+                menuToggle.setAttribute('aria-expanded', String(isOpen));
+            });
+
+            mobileMenu.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('open');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            document.addEventListener('click', (event) => {
+                if (!mobileMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+                    mobileMenu.classList.remove('open');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+    </script>
 </body>
 </html>

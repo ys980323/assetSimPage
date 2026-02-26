@@ -3,229 +3,416 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ys Apps - スマートなアプリ開発</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+    <title>Ys Apps</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
     <style>
-        .app-cards {
+        :root {
+            --bg-0: #07090d;
+            --bg-1: #0f1420;
+            --line: rgba(148, 163, 184, 0.22);
+            --line-strong: rgba(148, 163, 184, 0.42);
+            --text: #eef2ff;
+            --glow: rgba(167, 193, 255, 0.32);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+            color: var(--text);
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .app-card {
-            background: var(--card-background);
-            border-radius: 1.2rem;
+            place-items: center;
+            padding: 1.2rem;
+            background:
+                radial-gradient(1000px 420px at 10% -12%, #1a2437 0%, transparent 70%),
+                radial-gradient(900px 420px at 90% 0%, #141d2e 0%, transparent 70%),
+                linear-gradient(165deg, var(--bg-0), var(--bg-1));
+            position: relative;
             overflow: hidden;
-            box-shadow: var(--glass-shadow);
-            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-            text-decoration: none;
-            color: var(--text-color);
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                linear-gradient(to right, var(--line) 1px, transparent 1px) 0 0 / 36px 36px,
+                linear-gradient(to bottom, var(--line) 1px, transparent 1px) 0 0 / 36px 36px;
+            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.45));
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .topbar {
+            position: fixed;
+            top: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(980px, calc(100% - 2rem));
+            border: 1px solid var(--line-strong);
+            border-radius: 14px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 12px 32px rgba(5, 10, 20, 0.45);
+            padding: 0.6rem 0.8rem;
             display: flex;
-            flex-direction: column;
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(var(--blur-amount));
-            -webkit-backdrop-filter: blur(var(--blur-amount));
+            justify-content: space-between;
+            align-items: center;
+            z-index: 20;
         }
-        
-        .app-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 35px rgba(15, 118, 110, 0.2);
-            border-color: rgba(15, 118, 110, 0.2);
+
+        .topbar-logo {
+            font-size: 0.95rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #f8fbff;
         }
-        
-        .app-card-header {
-            padding: 2rem;
-            background: linear-gradient(135deg, #0f766e, #16a34a, #22c55e);
-            color: white;
-        }
-        
-        .app-card-body {
-            padding: 2rem;
-            flex-grow: 1;
-        }
-        
-        .app-card h3 {
-            font-size: 1.75rem;
-            margin-bottom: 1rem;
-        }
-        
-        .app-card p {
-            color: var(--light-text-color);
-            margin-bottom: 1.5rem;
-        }
-        
-        .app-card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .app-card-footer {
-            padding: 1.5rem 2rem;
-            background-color: var(--light-background);
+
+        .topbar-nav {
             display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
             justify-content: center;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 999px;
+            padding: 0.45rem 0.75rem;
+            font-size: 0.85rem;
             text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 10px 20px rgba(15, 118, 110, 0.2);
+            color: #f8fbff;
+            border: 1px solid rgba(191, 219, 254, 0.48);
+            border-radius: 9px;
+            background: rgba(15, 23, 42, 0.45);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
-        
-        .btn:hover {
-            background-color: var(--secondary-color);
+
+        .nav-btn:hover {
+            transform: translateY(-1px);
+            border-color: rgba(191, 219, 254, 0.9);
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.45), 0 0 18px rgba(167, 193, 255, 0.14);
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(191, 219, 254, 0.55);
+            border-radius: 10px;
+            background: rgba(15, 23, 42, 0.6);
+            color: #eef2ff;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 18px;
+            height: 2px;
+            background: currentColor;
+            position: relative;
+            display: block;
+        }
+
+        .menu-toggle span::before,
+        .menu-toggle span::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 18px;
+            height: 2px;
+            background: currentColor;
+        }
+
+        .menu-toggle span::before {
+            top: -6px;
+        }
+
+        .menu-toggle span::after {
+            top: 6px;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 4.4rem;
+            right: 1rem;
+            width: min(280px, calc(100% - 2rem));
+            border: 1px solid var(--line-strong);
+            border-radius: 12px;
+            background: linear-gradient(155deg, rgba(22, 30, 45, 0.95), rgba(12, 18, 31, 0.95));
+            box-shadow: 0 18px 38px rgba(5, 10, 20, 0.6);
+            padding: 0.75rem;
+            display: none;
+            flex-direction: column;
+            gap: 0.55rem;
+            z-index: 25;
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        @media (min-width: 641px) {
+            .mobile-menu {
+                display: none !important;
+            }
+        }
+
+        .panel {
+            width: min(760px, 100%);
+            border: 1px solid var(--line-strong);
+            border-radius: 18px;
+            padding: clamp(1.1rem, 3vw, 2rem);
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 22px 58px rgba(5, 10, 20, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+        }
+
+        .brand {
+            font-size: clamp(1.35rem, 2.5vw, 2rem);
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .brand::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #c7d2fe;
+            box-shadow: 0 0 18px var(--glow);
+            animation: pulse 2.2s ease-in-out infinite;
+        }
+
+        .link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            color: #f8fbff;
+            text-decoration: none;
+            border: 1px solid rgba(191, 219, 254, 0.6);
+            border-radius: 12px;
+            padding: 0.82rem 1.15rem;
+            background:
+                linear-gradient(120deg, rgba(30, 41, 59, 0.82), rgba(30, 41, 59, 0.35)),
+                rgba(15, 23, 42, 0.45);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, color 0.22s ease;
+            max-width: 100%;
+            overflow-wrap: anywhere;
+        }
+
+        .link::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, transparent 20%, rgba(191, 219, 254, 0.28) 50%, transparent 80%);
+            transform: translateX(-130%);
+            transition: transform 0.45s ease;
+        }
+
+        .link::after {
+            content: '↗';
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .link:hover {
             transform: translateY(-2px);
+            color: #ffffff;
+            border-color: rgba(191, 219, 254, 0.95);
+            box-shadow:
+                0 12px 24px rgba(15, 23, 42, 0.58),
+                0 0 26px rgba(167, 193, 255, 0.3),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+        }
+
+        .link:hover::before {
+            transform: translateX(130%);
+        }
+
+        .contact {
+            margin-top: 1.1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--line);
+        }
+
+        .contact h2 {
+            font-size: 0.95rem;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.6rem;
+            color: #e8eeff;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .mail-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: #f8fbff;
+            border: 1px solid rgba(191, 219, 254, 0.6);
+            border-radius: 10px;
+            padding: 0.68rem 0.95rem;
+            background: rgba(15, 23, 42, 0.5);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            max-width: 100%;
+            overflow-wrap: anywhere;
+        }
+
+        .mail-link::before {
+            content: '@';
+            opacity: 0.9;
+        }
+
+        .x-link::before {
+            content: 'X';
+            font-weight: 700;
+            opacity: 0.95;
+        }
+
+        .mail-link:hover {
+            transform: translateY(-1px);
+            border-color: rgba(191, 219, 254, 0.95);
+            box-shadow: 0 10px 22px rgba(15, 23, 42, 0.5), 0 0 20px rgba(167, 193, 255, 0.2);
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.45; transform: scale(0.88); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0.45; transform: scale(0.88); }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 0.9rem;
+            }
+
+            .topbar {
+                top: 0.7rem;
+                width: calc(100% - 1.2rem);
+                padding: 0.45rem 0.55rem;
+            }
+
+            .topbar-logo {
+                font-size: 0.8rem;
+                letter-spacing: 0.1em;
+            }
+
+            .topbar-nav {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: inline-flex;
+            }
+
+            .panel {
+                padding: 1rem;
+                border-radius: 14px;
+                margin-top: 3.7rem;
+            }
+
+            .brand {
+                letter-spacing: 0.12em;
+                margin-bottom: 0.85rem;
+            }
+
+            .link {
+                display: flex;
+                width: 100%;
+                font-size: 0.92rem;
+                line-height: 1.45;
+                padding: 0.78rem 0.88rem;
+            }
+
+            .mail-link {
+                display: flex;
+                width: 100%;
+                font-size: 0.92rem;
+                line-height: 1.45;
+            }
+
+            .contact-links {
+                display: grid;
+                gap: 0.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <nav class="nav">
-                <div class="logo">Ys Apps</div>
-                <button class="hamburger" aria-label="メニュー">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                <div class="nav-links">
-                    <a href="index.html" class="active">ホーム</a>
-                    <a href="asset-sim.html">資産予測</a>
-                    <a href="cash-flow.html">おさいふ予報</a>
-                    <a href="terms-of-service.html">利用規約</a>
-                    <a href="privacy-policy.html">プライバシーポリシー</a>
-                </div>
-            </nav>
-            <div class="hero">
-                <h1>シンプルで使いやすい<br>スマートなアプリ</h1>
-                <p class="subtitle">ライフスタイルを豊かにする<br>高品質なモバイルアプリ開発</p>
-            </div>
-        </div>
+    <header class="topbar">
+        <div class="topbar-logo">YS Apps</div>
+        <nav class="topbar-nav" aria-label="トップナビゲーション">
+            <a class="nav-btn" href="index.html">ホーム</a>
+            <a class="nav-btn" href="privacy-policy.html">プライバシーポリシー</a>
+            <a class="nav-btn" href="terms-of-service.html">利用規約</a>
+        </nav>
+        <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobile-menu">
+            <span></span>
+        </button>
     </header>
 
-    <main class="content">
-        <section class="features">
-            <div class="container">
-                <h2 class="section-title">アプリ一覧</h2>
-                <p style="text-align: center; margin-bottom: 2rem;">シンプルで使いやすい、でもパワフルな機能を持つアプリをご紹介します。</p>
-                
-                <div class="app-cards">
-                    <a href="asset-sim.html" class="app-card">
-                        <div class="app-card-header">
-                            <div class="app-card-icon">📊</div>
-                            <h3>資産予測</h3>
-                        </div>
-                        <div class="app-card-body">
-                            <p>モンテカルロ法による高度な資産シミュレーションを、スマートフォンで直感的に。市場暴落や定期的な引き出しまで考慮した、プロフェッショナルレベルの資産形成分析を、どなたでも簡単に実施できます。</p>
-                        </div>
-                        <div class="app-card-footer">
-                            <span class="btn">詳細を見る</span>
-                        </div>
-                    </a>
-                    
-                    <a href="cash-flow.html" class="app-card">
-                        <div class="app-card-header">
-                            <div class="app-card-icon">💰</div>
-                            <h3>おさいふ予報</h3>
-                        </div>
-                        <div class="app-card-body">
-                            <p>日々の収支をカンタン管理。あなたの資産の流れを可視化します。収入と支出を直感的に記録し、将来のお金の流れを予測。効率的な家計管理を実現します。</p>
-                        </div>
-                        <div class="app-card-footer">
-                            <span class="btn">詳細を見る</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
+    <nav id="mobile-menu" class="mobile-menu" aria-label="モバイルメニュー">
+        <a class="nav-btn" href="index.html">ホーム</a>
+        <a class="nav-btn" href="privacy-policy.html">プライバシーポリシー</a>
+        <a class="nav-btn" href="terms-of-service.html">利用規約</a>
+    </nav>
 
-        <section class="features">
-            <div class="container">
-                <h2 class="section-title">アプリの特徴</h2>
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">🌓</div>
-                        <h3>ダークモード対応</h3>
-                        <p>目に優しいダークモードを搭載。夜間の使用でも快適に操作できます。</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📱</div>
-                        <h3>直感的なUI</h3>
-                        <p>シンプルで使いやすいデザイン。誰でも迷わず操作できるインターフェース。</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">✨</div>
-                        <h3>プレミアム機能</h3>
-                        <p>広告を非表示にできるプレミアム機能を用意。より快適な操作環境を提供します。</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <main class="panel">
+        <h1 class="brand">App Store Link</h1>
+        <a class="link" href="https://apps.apple.com/jp/developer/yusuke-suzuki/id1794992188" target="_blank" rel="noopener noreferrer">https://apps.apple.com/jp/developer/yusuke-suzuki/id1794992188</a>
 
-        <section class="calculation-model">
-            <div class="container">
-                <h2 class="section-title">開発理念</h2>
-                <div class="model-explanation">
-                    <div class="model-section">
-                        <h3>💡 シンプルさと使いやすさ</h3>
-                        <p>複雑な機能を直感的に操作できるよう設計。誰でもすぐに使いこなせるシンプルなインターフェースを提供します。</p>
-                    </div>
-
-                    <div class="model-section">
-                        <h3>🔍 ユーザーニーズへの注目</h3>
-                        <p>実際のユーザーの声を反映したアプリ開発。日常生活での本当の課題を解決するための機能を追求しています。</p>
-                    </div>
-
-                    <div class="model-section">
-                        <h3>🛠️ 高品質な実装</h3>
-                        <p>バグの少ない安定したアプリ体験のために、徹底した品質管理を行っています。ストレスなく使い続けられるアプリを目指します。</p>
-                    </div>
-
-                    <div class="model-section">
-                        <h3>🔄 継続的な改善</h3>
-                        <p>ユーザーフィードバックを元に定期的な更新を実施。常に進化し続けるアプリを提供します。</p>
-                    </div>
-                </div>
+        <section class="contact" aria-label="Contact">
+            <h2>Contact</h2>
+            <div class="contact-links">
+                <a class="mail-link" href="mailto:ys.apps.feedback@gmail.com">ys.apps.feedback@gmail.com</a>
+                <a class="mail-link x-link" href="https://x.com/suke_arts?s=21" target="_blank" rel="noopener noreferrer">https://x.com/suke_arts?s=21</a>
             </div>
         </section>
     </main>
 
-    <footer class="footer">
-        <div class="footer-wave">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="var(--background-color)" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,138.7C672,149,768,203,864,202.7C960,203,1056,149,1152,122.7C1248,96,1344,96,1392,96L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
-        </div>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-info">
-                    <div class="footer-logo">Ys Apps</div>
-                    <p>&copy; 2025 Ys Apps. All rights reserved.</p>
-                </div>
-                <div class="footer-links">
-                    <h4>アプリについて</h4>
-                    <a href="index.html">ホーム</a>
-                    <a href="asset-sim.html">資産予測</a>
-                    <a href="cash-flow.html">おさいふ予報</a>
-                </div>
-                <div class="footer-links">
-                    <h4>法的情報</h4>
-                    <a href="terms-of-service.html">利用規約</a>
-                    <a href="privacy-policy.html">プライバシーポリシー</a>
-                </div>
-                <div class="footer-contact">
-                    <h4>お問い合わせ</h4>
-                    <p><a href="mailto:ys.apps.feedback@gmail.com">ys.apps.feedback@gmail.com</a></p>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <script src="js/main.js"></script>
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', () => {
+                const isOpen = mobileMenu.classList.toggle('open');
+                menuToggle.setAttribute('aria-expanded', String(isOpen));
+            });
+
+            mobileMenu.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('open');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            document.addEventListener('click', (event) => {
+                if (!mobileMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+                    mobileMenu.classList.remove('open');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
