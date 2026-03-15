@@ -71,6 +71,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 0.8rem;
             z-index: 20;
         }
 
@@ -81,12 +82,15 @@
             color: #f8fbff;
         }
 
-        .topbar-nav {
+        .topbar-nav,
+        .topbar-actions {
             display: flex;
             gap: 0.5rem;
+            align-items: center;
         }
 
-        .nav-btn {
+        .nav-btn,
+        .lang-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -97,13 +101,21 @@
             border: 1px solid rgba(191, 219, 254, 0.48);
             border-radius: 9px;
             background: rgba(15, 23, 42, 0.45);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+            cursor: pointer;
         }
 
-        .nav-btn:hover {
+        .nav-btn:hover,
+        .nav-btn.active,
+        .lang-btn:hover,
+        .lang-btn.active {
             transform: translateY(-1px);
             border-color: rgba(191, 219, 254, 0.9);
             box-shadow: 0 8px 18px rgba(15, 23, 42, 0.45), 0 0 18px rgba(167, 193, 255, 0.14);
+        }
+
+        .lang-btn.active {
+            background: rgba(99, 102, 241, 0.28);
         }
 
         .menu-toggle {
@@ -163,6 +175,11 @@
 
         .mobile-menu.open {
             display: flex;
+        }
+
+        .lang-switch-mobile {
+            display: flex;
+            gap: 0.5rem;
         }
 
         @media (min-width: 641px) {
@@ -301,6 +318,14 @@
             box-shadow: 0 10px 22px rgba(15, 23, 42, 0.5), 0 0 20px rgba(167, 193, 255, 0.2);
         }
 
+        [data-lang] { display: none; }
+        html[data-current-lang="ja"] [data-lang="ja"],
+        html[data-current-lang="en"] [data-lang="en"] { display: block; }
+        html[data-current-lang="ja"] span[data-lang="ja"],
+        html[data-current-lang="en"] span[data-lang="en"],
+        html[data-current-lang="ja"] a[data-lang="ja"],
+        html[data-current-lang="en"] a[data-lang="en"] { display: inline; }
+
         @keyframes pulse {
             0% { opacity: 0.45; transform: scale(0.88); }
             50% { opacity: 1; transform: scale(1); }
@@ -323,9 +348,8 @@
                 letter-spacing: 0.1em;
             }
 
-            .topbar-nav {
-                display: none;
-            }
+            .topbar-nav,
+            .topbar-actions { display: none; }
 
             .menu-toggle {
                 display: inline-flex;
@@ -367,28 +391,60 @@
 <body>
     <header class="topbar">
         <div class="topbar-logo">YS Apps</div>
-        <nav class="topbar-nav" aria-label="トップナビゲーション">
-            <a class="nav-btn" href="index.html">ホーム</a>
-            <a class="nav-btn" href="privacy-policy.html">プライバシーポリシー</a>
-            <a class="nav-btn" href="terms-of-service.html">利用規約</a>
+        <nav class="topbar-nav" aria-label="Primary navigation">
+            <a class="nav-btn active" href="index.html">
+                <span data-lang="ja">ホーム</span>
+                <span data-lang="en">Home</span>
+            </a>
+            <a class="nav-btn" href="privacy-policy.html">
+                <span data-lang="ja">プライバシーポリシー</span>
+                <span data-lang="en">Privacy Policy</span>
+            </a>
+            <a class="nav-btn" href="terms-of-service.html">
+                <span data-lang="ja">利用規約</span>
+                <span data-lang="en">Terms</span>
+            </a>
         </nav>
-        <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobile-menu">
+        <div class="topbar-actions" aria-label="Language switch">
+            <button class="lang-btn" type="button" data-set-lang="ja">JA</button>
+            <button class="lang-btn" type="button" data-set-lang="en">EN</button>
+        </div>
+        <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
             <span></span>
         </button>
     </header>
 
-    <nav id="mobile-menu" class="mobile-menu" aria-label="モバイルメニュー">
-        <a class="nav-btn" href="index.html">ホーム</a>
-        <a class="nav-btn" href="privacy-policy.html">プライバシーポリシー</a>
-        <a class="nav-btn" href="terms-of-service.html">利用規約</a>
+    <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile menu">
+        <a class="nav-btn active" href="index.html">
+            <span data-lang="ja">ホーム</span>
+            <span data-lang="en">Home</span>
+        </a>
+        <a class="nav-btn" href="privacy-policy.html">
+            <span data-lang="ja">プライバシーポリシー</span>
+            <span data-lang="en">Privacy Policy</span>
+        </a>
+        <a class="nav-btn" href="terms-of-service.html">
+            <span data-lang="ja">利用規約</span>
+            <span data-lang="en">Terms</span>
+        </a>
+        <div class="lang-switch-mobile" aria-label="Language switch">
+            <button class="lang-btn" type="button" data-set-lang="ja">JA</button>
+            <button class="lang-btn" type="button" data-set-lang="en">EN</button>
+        </div>
     </nav>
 
     <main class="panel">
-        <h1 class="brand">App Store Link</h1>
+        <h1 class="brand">
+            <span data-lang="ja">App Store Link</span>
+            <span data-lang="en">App Store Link</span>
+        </h1>
         <a class="link" href="https://apps.apple.com/jp/developer/yusuke-suzuki/id1794992188" target="_blank" rel="noopener noreferrer">https://apps.apple.com/jp/developer/yusuke-suzuki/id1794992188</a>
 
         <section class="contact" aria-label="Contact">
-            <h2>Contact</h2>
+            <h2>
+                <span data-lang="ja">お問い合わせ</span>
+                <span data-lang="en">Contact</span>
+            </h2>
             <div class="contact-links">
                 <a class="mail-link" href="mailto:ys.apps.feedback@gmail.com">ys.apps.feedback@gmail.com</a>
                 <a class="mail-link x-link" href="https://x.com/suke_arts?s=21" target="_blank" rel="noopener noreferrer">https://x.com/suke_arts?s=21</a>
@@ -397,8 +453,30 @@
     </main>
 
     <script>
+        const root = document.documentElement;
         const menuToggle = document.querySelector('.menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
+        const langButtons = document.querySelectorAll('[data-set-lang]');
+        const supportedLanguages = ['ja', 'en'];
+
+        const applyLanguage = (lang) => {
+            const nextLang = supportedLanguages.includes(lang) ? lang : 'ja';
+            root.lang = nextLang;
+            root.dataset.currentLang = nextLang;
+            localStorage.setItem('ys-apps-lang', nextLang);
+            document.querySelectorAll('[data-set-lang]').forEach((button) => {
+                button.classList.toggle('active', button.dataset.setLang === nextLang);
+                button.setAttribute('aria-pressed', String(button.dataset.setLang === nextLang));
+            });
+        };
+
+        const storedLanguage = localStorage.getItem('ys-apps-lang');
+        const browserLanguage = navigator.language && navigator.language.toLowerCase().startsWith('en') ? 'en' : 'ja';
+        applyLanguage(storedLanguage || browserLanguage);
+
+        langButtons.forEach((button) => {
+            button.addEventListener('click', () => applyLanguage(button.dataset.setLang));
+        });
 
         if (menuToggle && mobileMenu) {
             menuToggle.addEventListener('click', () => {
